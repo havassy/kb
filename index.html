@@ -5,7 +5,6 @@
   <title>Kényelem – Biztonság</title>
   <style>
     :root {
-      /* Yettel-szerű zöld háttér és sötétkék szöveg */
       --yettel-green: #ccff00;
       --yettel-dark: #00253b;
       --track-color: #ffffff;
@@ -86,7 +85,6 @@
       outline: none;
     }
 
-    /* Chrome/Edge thumb */
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -104,7 +102,6 @@
       transform: scale(1.05);
     }
 
-    /* Firefox */
     input[type="range"]::-moz-range-track {
       height: 18px;
       border-radius: 999px;
@@ -182,7 +179,7 @@
     </div>
 
     <div class="slider-row">
-      <div class="value-badge" id="comfortBadge">
+      <div class="value-badge">
         <span class="num" id="comfortValue">50</span>
       </div>
 
@@ -190,7 +187,7 @@
         <input type="range" id="slider" min="0" max="100" value="50" />
       </div>
 
-      <div class="value-badge" id="securityBadge">
+      <div class="value-badge">
         <span class="num" id="securityValue">50</span>
       </div>
     </div>
@@ -202,8 +199,11 @@
     const securityValue = document.getElementById("securityValue");
 
     function updateValues() {
-      const comfort = slider.valueAsNumber;
-      const security = 100 - comfort;  // zéró összegű modell
+      // BAL oldal: Kényelem – akkor nagy, ha balra húzod (0),
+      // JOBB oldal: Biztonság – akkor nagy, ha jobbra húzod (100)
+      const raw = slider.valueAsNumber;
+      const security = raw;              // jobb oldal
+      const comfort = 100 - raw;         // bal oldal
       comfortValue.textContent = comfort;
       securityValue.textContent = security;
     }
