@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kényelem – Biztonság</title>
+  <style>
+    :root {
+      /* Yettel-szerű zöld háttér és sötétkék szöveg */
+      --yettel-green: #ccff00;
+      --yettel-dark: #00253b;
+      --track-color: #ffffff;
+      --thumb-color: #00253b;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, system-ui, -apple-system, sans-serif;
+      background: var(--yettel-green);
+      color: var(--yettel-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90vw;
+      max-width: 1400px;
+      height: 70vh;
+      max-height: 800px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 40px 40px 48px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 46px;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .total {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 26px;
+    }
+
+    .labels-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      padding: 0 10px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 18px;
+    }
+
+    .slider-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--track-color);
+      outline: none;
+    }
+
+    /* Chrome/Edge thumb */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--thumb-color);
+      border: 3px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 0 6px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.05);
+    }
+
+    /* Firefox */
+    input[type="range"]::-moz-range-track {
+      height: 18px;
+      border-radius: 999px;
+      background: var(--track-color);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--thumb-color);
+      border: 3px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 0 6px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease;
+    }
+
+    input[type="range"]::-moz-range-thumb:active {
+      transform: scale(1.05);
+    }
+
+    .value-badge {
+      min-width: 120px;
+      text-align: center;
+      font-family: "Consolas", "SF Mono", monospace;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--yettel-dark);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .value-badge span.num {
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 1.1;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        height: auto;
+        padding: 30px 20px 40px;
+      }
+      h1 {
+        font-size: 34px;
+        margin-bottom: 8px;
+      }
+      .total {
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+      .labels-row {
+        font-size: 20px;
+      }
+      .slider-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .value-badge {
+        min-width: 160px;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kényelem – Biztonság</h1>
+
+    <div class="total">100</div>
+
+    <div class="labels-row">
+      <div>Kényelem</div>
+      <div>Biztonság</div>
+    </div>
+
+    <div class="slider-row">
+      <div class="value-badge" id="comfortBadge">
+        <span class="num" id="comfortValue">50</span>
+      </div>
+
+      <div class="slider-wrapper">
+        <input type="range" id="slider" min="0" max="100" value="50" />
+      </div>
+
+      <div class="value-badge" id="securityBadge">
+        <span class="num" id="securityValue">50</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById("slider");
+    const comfortValue = document.getElementById("comfortValue");
+    const securityValue = document.getElementById("securityValue");
+
+    function updateValues() {
+      const comfort = slider.valueAsNumber;
+      const security = 100 - comfort;  // zéró összegű modell
+      comfortValue.textContent = comfort;
+      securityValue.textContent = security;
+    }
+
+    slider.addEventListener("input", updateValues);
+    updateValues();
+  </script>
+</body>
+</html>
